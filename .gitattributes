@@ -1,0 +1,21 @@
+# Normalize line endings to LF in the repository and in the working tree.
+# The shell steps in the GitHub Actions workflows run on Linux and break on
+# CRLF, so this must not be left to the platform default.
+* text=auto eol=lf
+
+# Generated sources and vendored OpenAPI documents are excluded from diffs and
+# language statistics, which keeps pull requests readable.
+src/forum/_generated.ts linguist-generated=true
+src/market/_generated.ts linguist-generated=true
+docs/api-forum.md linguist-generated=true
+docs/api-market.md linguist-generated=true
+codegen/schemas/*.json linguist-vendored=true
+package-lock.json linguist-generated=true
+
+# Binary types, never diffed or line-ending normalized.
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
