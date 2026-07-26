@@ -521,6 +521,24 @@ Requirements the workflow already satisfies, listed here because they are easy t
 - No `registry-url` on `actions/setup-node`. It would write an `.npmrc` with an empty auth token, which conflicts with OIDC.
 - `repository.url` in `package.json` matching the GitHub repository exactly.
 
+### GitHub Packages mirror
+
+The same workflow also publishes a copy to the GitHub registry, which is what fills the **Packages** panel on the repository page. That registry only accepts names scoped to the repository owner, so the mirror is called `@liwidale/lolzteam-api-ts`. The rename happens in CI only and is never committed; the name on npmjs.com stays `lolzteam-api-ts`.
+
+Nothing has to be configured for it: the job authenticates with the automatic `GITHUB_TOKEN` and the `packages: write` permission, so no secret is stored in the repository.
+
+Install from npm, which is the canonical source:
+
+```bash
+npm install lolzteam-api-ts
+```
+
+Install the mirror instead, which requires a GitHub token with `read:packages` because the GitHub registry authenticates every read, including public ones:
+
+```bash
+npm install @liwidale/lolzteam-api-ts --registry=https://npm.pkg.github.com
+```
+
 ### Publishing under a scope
 
 If the unscoped name is taken, switch to a scoped name:

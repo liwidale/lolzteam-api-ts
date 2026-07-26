@@ -117,3 +117,58 @@ jobs:
       - name: Publish
         if: steps.registry.outputs.published == 'false'
         run: npm publish --access public --provenance
+
+  github-packages:
+    name: Publish to GitHub Packages
+    needs: publish
+    if: always() && needs.publish.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Lets GITHUB_TOKEN write to npm.pkg.github.com. No stored secret needed.
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.14.0"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@liwidale"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The GitHub registry only accepts names scoped to the repository owner,
+      # so the manifest is renamed for this publish only. The change is never
+      # committed, and the name on npmjs.com stays lolzteam-api-ts.
+      - name: Scope the package name for the GitHub registry
+        run: npm pkg set name=@liwidale/lolzteam-api-ts
+
+      - name: Skip if this version is already in GitHub Packages
+        id: registry
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          if npm view "@liwidale/lolzteam-api-ts@$VERSION" version \
+              --registry=https://npm.pkg.github.com > /dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "@liwidale/lolzteam-api-ts@$VERSION is already in GitHub Packages."
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            echo "@liwidale/lolzteam-api-ts@$VERSION is not in GitHub Packages yet."
+          fi
+
+      - name: Build
+        if: steps.registry.outputs.published == 'false'
+        run: npm run build
+
+      # --ignore-scripts skips prepublishOnly, which would rerun the whole
+      # verify pipeline that the verify job already completed.
+      - name: Publish
+        if: steps.registry.outputs.published == 'false'
+        run: npm publish --registry=https://npm.pkg.github.com --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
