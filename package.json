@@ -38,6 +38,8 @@
     "test:coverage": "jest --coverage",
     "build": "npm run clean && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && tsc -p tsconfig.types.json && node scripts/postbuild.mjs",
     "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "sync-version": "node scripts/sync-version.mjs",
+    "version": "node scripts/sync-version.mjs && git add src/version.ts",
     "prepublishOnly": "npm run verify"
   },
   "keywords": [
