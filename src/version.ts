@@ -5,4 +5,4 @@
  * npm `version` lifecycle hook. Do not edit by hand: run `npm version patch`
  * instead, or `node scripts/sync-version.mjs` to resynchronize.
  */
-export const VERSION = "1.0.0";
+export const VERSION = "1.0.1";

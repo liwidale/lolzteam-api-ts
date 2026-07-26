@@ -1,6 +1,6 @@
 {
   "name": "lolzteam-api-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript and JavaScript SDK for the LOLZTEAM Forum and Market APIs, generated from the official OpenAPI documents.",
   "type": "commonjs",
   "main": "./dist/cjs/index.js",
