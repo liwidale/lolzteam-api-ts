@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+coverage/
+*.tgz
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+
+# Scratch files used for manual testing against a real token
+scratch.ts
+scratch/
+
+# Editors and operating systems
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# The OpenAPI documents in codegen/schemas/ are intentionally committed:
+# the generator needs them and CI verifies the output against them.

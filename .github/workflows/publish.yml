@@ -1,0 +1,101 @@
+name: Publish to npm
+
+# Publishing uses npm trusted publishing (OIDC), not a long lived token.
+#
+# Granular access tokens with the 2FA bypass option are being retired: they
+# lose sensitive account operations in early August 2026 and lose direct
+# publishing around January 2027. OIDC replaces them, and it needs no secret
+# stored in this repository at all.
+#
+# One time setup, after the first version has been published manually:
+#   1. Open https://www.npmjs.com/package/lolzteam-api-ts/access
+#   2. Under Trusted Publisher choose GitHub Actions
+#   3. Organization or user: your GitHub account
+#      Repository:           lolzteam-api-ts
+#      Workflow filename:    publish.yml
+#      Environment name:     leave empty unless you use one below
+#   4. Allowed actions: npm publish
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: Verify on Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node: ["18", "20", "22"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Run tests
+        run: npm test
+
+  publish:
+    name: Build and publish
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Lets the job mint the OIDC token that npm exchanges for publish rights.
+      # Without it, trusted publishing fails with an authentication error.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      # No registry-url here on purpose. It would write an .npmrc containing an
+      # empty auth token, which conflicts with OIDC. The default registry is
+      # already registry.npmjs.org.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.14.0"
+          cache: "npm"
+
+      # Trusted publishing requires npm 11.5.1 or newer. Node 22 still ships
+      # npm 10, so upgrade before publishing.
+      - name: Upgrade npm
+        run: npm install -g npm@latest
+
+      - name: Report toolchain versions
+        run: node -v && npm -v
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check that the tag matches the package version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          PKG="$(node -p "require('./package.json').version")"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "Tag v$TAG does not match package.json version $PKG."
+            exit 1
+          fi
+
+      - name: Build
+        run: npm run build
+
+      # --provenance is passed explicitly. Provenance is documented as automatic
+      # under OIDC, but the flag is what reliably produces the attestation, and
+      # it is only valid inside a supported CI environment.
+      - name: Publish
+        run: npm publish --access public --provenance
