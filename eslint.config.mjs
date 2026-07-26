@@ -53,9 +53,17 @@ export default tseslint.config(
     },
   },
   {
-    files: ["scripts/**/*.mjs", "eslint.config.mjs", "jest.config.js"],
+    files: ["scripts/**", "eslint.config.mjs", "jest.config.js"],
     rules: {
       "no-console": "off",
+    },
+  },
+  {
+    // CommonJS helpers must use require(): scripts/smoke.cjs exists precisely
+    // to exercise the CommonJS entry point of the published package.
+    files: ["**/*.cjs"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
     },
   }
 );
