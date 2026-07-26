@@ -517,7 +517,7 @@ The workflow lints, type checks and tests on Node 18, 20 and 22, then builds and
 Requirements the workflow already satisfies, listed here because they are easy to break:
 
 - `permissions: id-token: write` on the publish job, which mints the OIDC token.
-- npm 11.5.1 or newer and Node 22.14.0 or newer. Node 22 still ships npm 10, so the workflow upgrades npm before publishing.
+- npm 11.5.1 or newer and Node 22.14.0 or newer. Node 22 still ships npm 10, so the workflow installs `npm@11` before publishing. The major version is pinned deliberately: `npm@latest` is already npm 12, whose engine range excludes older Node 22 patch releases.
 - No `registry-url` on `actions/setup-node`. It would write an `.npmrc` with an empty auth token, which conflicts with OIDC.
 - `repository.url` in `package.json` matching the GitHub repository exactly.
 

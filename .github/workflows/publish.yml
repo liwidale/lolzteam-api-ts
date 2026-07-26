@@ -67,13 +67,15 @@ jobs:
       # already registry.npmjs.org.
       - uses: actions/setup-node@v4
         with:
-          node-version: "22.14.0"
+          node-version: "22"
           cache: "npm"
 
-      # Trusted publishing requires npm 11.5.1 or newer. Node 22 still ships
-      # npm 10, so upgrade before publishing.
+      # Trusted publishing requires npm 11.5.1 or newer, and Node 22 still
+      # ships npm 10. The major version is pinned on purpose: npm@latest is
+      # already npm 12, whose engine range excludes older Node 22 patches, so
+      # tracking it would tie this step to the exact runtime setup-node picks.
       - name: Upgrade npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@11
 
       - name: Report toolchain versions
         run: node -v && npm -v
@@ -132,7 +134,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22.14.0"
+          node-version: "22"
           registry-url: "https://npm.pkg.github.com"
           scope: "@liwidale"
           cache: "npm"
