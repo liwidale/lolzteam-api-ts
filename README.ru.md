@@ -437,6 +437,7 @@ npm run verify
 | `npm run build` | Очистка и сборка CommonJS, ES modules и деклараций. |
 | `npm run codegen` | Перегенерация обоих модулей API. |
 | `npm run docs` | Перегенерация справочника методов. |
+| `npm run sync-version` | Перезапись `src/version.ts` из `package.json`. |
 | `npm run clean` | Удаление `dist/` и `coverage/`. |
 
 ## Публикация в npm
@@ -479,7 +480,7 @@ npm pack --dry-run
 npm version patch
 ```
 
-`npm version` принимает `patch`, `minor` и `major` и создаёт git тег. Держите `src/version.ts` в соответствии с `package.json`; тест `tests/package.test.ts` падает при расхождении. Затем отправьте изменения и опубликуйте:
+`npm version` принимает `patch`, `minor` и `major` и создаёт git тег. Скрипт жизненного цикла `version` перегенерирует `src/version.ts` из `package.json` и добавит его в коммит, поэтому экспортируемая константа `VERSION` не расходится с манифестом. Тест `tests/package.test.ts` упадёт, если это всё же случится. Затем отправьте изменения:
 
 ```bash
 git push --follow-tags

@@ -437,6 +437,7 @@ npm run verify
 | `npm run build` | Clean, then emit CommonJS, ES modules and declarations. |
 | `npm run codegen` | Regenerate both API modules. |
 | `npm run docs` | Regenerate the method reference. |
+| `npm run sync-version` | Rewrite `src/version.ts` from `package.json`. |
 | `npm run clean` | Delete `dist/` and `coverage/`. |
 
 ## Publishing to npm
@@ -479,7 +480,7 @@ npm pack --dry-run
 npm version patch
 ```
 
-`npm version` accepts `patch`, `minor` and `major`, and creates a git tag. Keep `src/version.ts` in step with `package.json`; `tests/package.test.ts` fails if the two drift. Then push and publish:
+`npm version` accepts `patch`, `minor` and `major`, and creates a git tag. The `version` lifecycle script regenerates `src/version.ts` from `package.json` and stages it, so the exported `VERSION` constant never drifts. `tests/package.test.ts` fails if it ever does. Then push:
 
 ```bash
 git push --follow-tags
