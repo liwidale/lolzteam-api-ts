@@ -1,18 +1,21 @@
-# lolzteam-api-ts
+<h1 align="center">lolzteam-api-ts</h1>
 
-TypeScript and JavaScript SDK for the LOLZTEAM **Forum** and **Market** APIs, generated from the official OpenAPI documents.
+<p align="center">
+  TypeScript and JavaScript SDK for the LOLZTEAM <b>Forum</b> and <b>Market</b> APIs, generated from the official OpenAPI documents.
+</p>
 
-[Русская версия](README.ru.md)
+<p align="center">
+  <a href="https://www.npmjs.com/package/lolzteam-api-ts"><img src="https://img.shields.io/npm/v/lolzteam-api-ts?label=npm&color=4c9dff" alt="npm"></a>
+  <a href="https://github.com/liwidale/lolzteam-api-ts/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/liwidale/lolzteam-api-ts/ci.yml?label=tests" alt="Tests"></a>
+  <img src="https://img.shields.io/badge/runtime-Node.js%20%7C%20Deno%20%7C%20Bun%20%7C%20Browser-lightgrey" alt="Node.js, Deno, Bun and browsers">
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/liwidale/lolzteam-api-ts?color=3ad37e" alt="MIT License"></a>
+</p>
 
-[![npm](https://img.shields.io/npm/v/lolzteam-api-ts.svg)](https://www.npmjs.com/package/lolzteam-api-ts)
-[![license](https://img.shields.io/npm/l/lolzteam-api-ts.svg)](LICENSE)
-[![types](https://img.shields.io/badge/types-included-blue.svg)](https://www.typescriptlang.org/)
+<p align="center">English · <a href="README.ru.md">Русский</a></p>
 
----
+## Contents
 
-## Table of contents
-
-- [Highlights](#highlights)
+- [What you get](#what-you-get)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Quick start](#quick-start)
@@ -33,9 +36,7 @@ TypeScript and JavaScript SDK for the LOLZTEAM **Forum** and **Market** APIs, ge
 - [Project structure](#project-structure)
 - [License](#license)
 
----
-
-## Highlights
+## What you get
 
 - **Complete coverage.** 151 Forum methods and 115 Market methods, generated straight from the official OpenAPI 3.1 documents.
 - **Correct on the wire.** You write `parentCategoryId`, the SDK sends `parent_category_id`. Bracketed array parameters such as `prefix_ids[]` and comma joined parameters such as `fields_include` are handled for you.
@@ -498,6 +499,8 @@ lolzteam-api-ts/
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+[MIT](LICENSE) © 2026 Liwidale
 
 This project is not affiliated with, endorsed by, or sponsored by LOLZTEAM. Use it in accordance with the platform rules and the applicable terms of service.
+
+<p align="center"><sub>ゝ made by <a href="https://github.com/liwidale">liwidale</a></sub></p>

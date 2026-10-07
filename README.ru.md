@@ -1,18 +1,21 @@
-# lolzteam-api-ts
+<h1 align="center">lolzteam-api-ts</h1>
 
-TypeScript и JavaScript SDK для API **LOLZTEAM Forum** и **Market**, сгенерированный из официальных OpenAPI документов.
+<p align="center">
+  TypeScript и JavaScript SDK для API <b>LOLZTEAM Forum</b> и <b>Market</b>, сгенерированный из официальных OpenAPI документов.
+</p>
 
-[English version](README.md)
+<p align="center">
+  <a href="https://www.npmjs.com/package/lolzteam-api-ts"><img src="https://img.shields.io/npm/v/lolzteam-api-ts?label=npm&color=4c9dff" alt="npm"></a>
+  <a href="https://github.com/liwidale/lolzteam-api-ts/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/liwidale/lolzteam-api-ts/ci.yml?label=tests" alt="Tests"></a>
+  <img src="https://img.shields.io/badge/runtime-Node.js%20%7C%20Deno%20%7C%20Bun%20%7C%20Browser-lightgrey" alt="Node.js, Deno, Bun and browsers">
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/liwidale/lolzteam-api-ts?color=3ad37e" alt="MIT License"></a>
+</p>
 
-[![npm](https://img.shields.io/npm/v/lolzteam-api-ts.svg)](https://www.npmjs.com/package/lolzteam-api-ts)
-[![license](https://img.shields.io/npm/l/lolzteam-api-ts.svg)](LICENSE)
-[![types](https://img.shields.io/badge/types-included-blue.svg)](https://www.typescriptlang.org/)
-
----
+<p align="center"><a href="README.md">English</a> · Русский</p>
 
 ## Содержание
 
-- [Возможности](#возможности)
+- [Что вы получаете](#что-вы-получаете)
 - [Требования](#требования)
 - [Установка](#установка)
 - [Быстрый старт](#быстрый-старт)
@@ -33,9 +36,7 @@ TypeScript и JavaScript SDK для API **LOLZTEAM Forum** и **Market**, сге
 - [Структура проекта](#структура-проекта)
 - [Лицензия](#лицензия)
 
----
-
-## Возможности
+## Что вы получаете
 
 - **Полное покрытие.** 151 метод Forum и 115 методов Market, сгенерированных напрямую из официальных документов OpenAPI 3.1.
 - **Корректная передача данных.** Вы пишете `parentCategoryId`, а SDK отправляет `parent_category_id`. Параметры-массивы со скобками вида `prefix_ids[]` и параметры, объединяемые через запятую, вроде `fields_include`, обрабатываются автоматически.
@@ -498,6 +499,8 @@ lolzteam-api-ts/
 
 ## Лицензия
 
-MIT. Смотрите [LICENSE](LICENSE).
+[MIT](LICENSE) © 2026 Liwidale
 
 Проект не связан с LOLZTEAM, не одобрен и не спонсируется этой командой. Используйте его в соответствии с правилами площадки и применимыми условиями обслуживания.
+
+<p align="center"><sub>ゝ made by <a href="https://github.com/liwidale">liwidale</a></sub></p>
